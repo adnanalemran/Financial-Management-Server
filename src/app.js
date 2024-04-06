@@ -12,8 +12,12 @@ const userHandler = require("../routeHandler/userHandler");
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zq9jmri.mongodb.net/?retryWrites=true&w=majority
+ 
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fhwdeyh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 `;
+
+
 -mongoose.connect(uri, { dbName: process.env.DB_NAME });
 
 const db = mongoose.connection;
