@@ -5,18 +5,14 @@ const app = express();
 const port = process.env.PORT || 5000;
 const axios = require("axios");
 require("dotenv").config();
- 
+
 const userHandler = require("../routeHandler/userHandler");
- 
 
 app.use(cors());
 app.use(express.json());
 
- 
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fhwdeyh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 `;
-
 
 -mongoose.connect(uri, { dbName: process.env.DB_NAME });
 
@@ -29,11 +25,11 @@ db.on("error", (err) => {
 db.once("open", () => {
   console.log("Connected to MongoDB");
 });
- 
+
 //start user function
 
 app.use("/user", userHandler);
- 
+
 // --------------------------------------localApi-------------------------------------------
 
 app.get("/", (req, res) => {
