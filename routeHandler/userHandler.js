@@ -106,7 +106,7 @@ router.get("/totalAgents", async (req, res) => {
 
 // Route to get the total number of admins
 router.get("/totalAdmins", async (req, res) => {
-  console.log('hit admin')
+ 
   try {
     const totalAdmins = await userCollection.countDocuments({ userType: "isAdmin" });
     res.json({ totalAdmins });
@@ -152,34 +152,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.post('/sendSms', async (req, res) => {
-  const { userId } = req.query;
-  const date = new Date().toISOString().substring(0, 10);
-
-  const agent = await userCollection.findOne({ _id: new ObjectId(userId) });
-  if (agent) {
-    const response = await axios.post(`http://bulksmsbd.net/api/smsapi?api_key=${process.env.SMS_API_KEY}&type=text&number=${agent.phoneNo}&senderid=${process.env.SENDER_ID}&message=প্রিয় গ্রাহক, ${agent.displayName}, M/s Humayun Traders এর সাথে থাকার জন্য ধন্যবাদ,আপনার বকেয়া: ${parseInt(agent.totalDueAmmout)}TK বকেয়া টাকা দ্রুত পরিশোধ করুন`);
-    console.log(response.data);
-  }
-  const update = await userCollection.updateOne(
-    { _id: new ObjectId(userId) },
-    { $set: { lastSmsSendingDate: date } }
-  );
-  res.send(update)
-})
-
-router.post('/paid', async(req, res)=>{
-  const id = req.query.userId;
-  const amount = req.query.amount;
-  console.log(id, amount)
-  const user = await userCollection.findOne({ _id: new ObjectId(id) });
-
-  const update = await userCollection.updateOne(
-    { _id: new ObjectId(id) },
-    { $set: { totalDueAmmout: user.totalDueAmmout - amount } }
-  );
-  console.log(update);
-  res.send(update);
-})
+ 
+ 
 
 module.exports = router;
