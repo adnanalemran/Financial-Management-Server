@@ -7,6 +7,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const userHandler = require("../routeHandler/userHandler");
+const CostHandler = require("../routeHandler/CostHandler");
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +30,7 @@ db.once("open", () => {
 //start user function
 
 app.use("/user", userHandler);
+app.use("/cost", CostHandler);
 
 // --------------------------------------localApi-------------------------------------------
 
